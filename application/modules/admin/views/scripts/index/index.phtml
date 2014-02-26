@@ -1,0 +1,52 @@
+<a href="<?php echo $this->url(array('action' => 'index', 'controller' => 'logout'), 'admin', true) ?>">Salir</a>
+<table>
+    <th>Id</th>
+    <th>Título</th>
+    <th>Entradilla</th>
+    <th>Fecha de creación</th>
+    <th>Fecha de edición</th>
+    <th>Id usuario creación</th>
+    <th>Id_Usuario edición</th>
+    <th>Activa</th>
+    <?php foreach ($this->paginador as $entrada): ?>
+        <tr>
+            <td>
+                <?php echo $entrada->entrada_id ?>
+            </td>
+            <td>
+                <?php echo $entrada->titulo ?>
+            </td>
+            <td>
+                <?php echo $entrada->entradilla ?>
+            </td>
+            <td>
+                <?php echo $this->formatearFecha($entrada->fecha_creacion, false) ?>
+            </td>
+            <td>
+                <?php echo $this->formatearFecha($entrada->fecha_edicion, false) ?>
+            </td>
+            <td style="text-align: center;">
+                <?php echo $entrada->findParentRow('Application_Model_Usuario', 'Autor')->nombre ?>
+            </td>
+            <td style="text-align: center;">
+                <?php echo $entrada->findParentRow('Application_Model_Usuario', 'Editor')->nombre ?>
+            </td>
+            <td style="text-align: center;">
+                <?php echo $entrada->activa ?>
+            </td>
+            <td style="text-align: center;">
+                <a href="<?php echo $this->url(array('action' => 'entradas', 'controller' => 'editar'), 'admin', true) ?>">Editar</a>
+            </td>
+            <td style="text-align: center;">
+                <a href="<?php echo $this->url(array('action' => 'entradas', 'controller' => 'borrar'), 'admin', true) ?>">Borrar</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<a href="<?php echo $this->url(array('action' => 'entradas', 'controller' => 'crear'), 'admin', true) ?>">Crear</a>
+<?php
+echo $this->paginationControl($this->paginador, 'Sliding', 'paginador.phtml');
+?>
+
+<br>
+

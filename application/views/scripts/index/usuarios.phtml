@@ -1,0 +1,36 @@
+<table>
+    <th>Id</th>
+    <th>Nombre</th>
+    <th>Email</th>
+    <th>Activo</th>
+    <th># entradas creadas</th>
+    <th># entradas editadas</th>
+
+    <?php foreach ($this->paginador as $usuario): ?>
+        <tr>
+            <td>
+                <?php echo $usuario->usuario_id ?>
+            </td>
+            <td>
+                <?php echo $usuario->nombre ?>
+            </td>
+            <td>
+                <?php echo $usuario->email ?>
+            </td>
+
+            <td style="text-align: center;">
+                <?php echo $usuario->activo ?>
+            </td>
+            <td>
+                <?php echo $usuario->findDependentRowset('Application_Model_Entrada', 'Autor')->count() ?>
+            </td>
+            <td>
+                <?php echo $usuario->findDependentRowset('Application_Model_Entrada', 'Editor')->count() ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
+<?php echo $this->paginationControl($this->paginador,
+    'Sliding',
+    'paginador.phtml'); ?>
